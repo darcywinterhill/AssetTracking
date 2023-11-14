@@ -15,9 +15,6 @@ namespace AssetTracking
             PurchaseDate = purchaseDate;
             Price = price;
         }
-        public override string Print()
-        {
-            return Brand.PadRight(20) + Model.PadRight(20) + PurchaseDate.ToString("yyyy/MM/dd").PadRight(20) + Price;
-        }
+
     }
 }

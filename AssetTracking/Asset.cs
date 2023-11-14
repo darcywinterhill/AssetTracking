@@ -16,9 +16,9 @@ namespace AssetTracking
         public DateTime PurchaseDate {  get; set; }
         public int Price { get; set; }
 
-        public virtual string Print()
+        public string Print()
         {
-            return Brand + Model + PurchaseDate + Price;
+            return Brand.PadRight(20) + Model.PadRight(20) + PurchaseDate.ToString("yyyy/MM/dd").PadRight(20) + Price;
         }
     }
 
