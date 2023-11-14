@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AssetTracking
+﻿namespace AssetTracking
 {
     internal class Laptop : Asset
     {
@@ -15,6 +9,7 @@ namespace AssetTracking
             PurchaseDate = purchaseDate;
             Price = price;
         }
+
 
     }
 }
