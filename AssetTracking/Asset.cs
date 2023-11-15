@@ -11,6 +11,7 @@
         public int Price { get; set; }
 
         public abstract void Print();
+        public abstract bool IsEndOfLifeNear();
 
     }
 
