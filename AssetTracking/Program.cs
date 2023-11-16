@@ -13,12 +13,10 @@ void AddedMessage() //Method to display message when product is added
     Console.ResetColor();
 }
 
-
-
 while (true)
 {
     Console.WriteLine("-------------------------------------------------");
-    Console.WriteLine(" >>>LÄGG TILL PRODUKT<<<");
+    Console.WriteLine(" >>> LÄGG TILL PRODUKT <<<");
     Console.WriteLine();
     Console.Write(" >> Ange märke: "); //Brand input
     string brand = Console.ReadLine();
@@ -36,15 +34,33 @@ while (true)
         break;
     }
 
-    Console.Write(" >> Ange inköpsdatum (YYYY/MM/DD: "); //Purcahse date input
+    Console.Write(" >> Ange inköpsdatum (YY/MM/DD: "); //Purcahse date input
+    
     string dateInput = Console.ReadLine();
+    DateTime purchaseDate;
+    bool dateBool = DateTime.TryParse(dateInput, out purchaseDate);
 
     if (dateInput.ToLower().Trim() == "exit")
     {
         break;
     }
 
-    DateTime purchaseDate = Convert.ToDateTime(dateInput);
+    try //Try-catch if input is not DateTime type
+    {
+        purchaseDate = Convert.ToDateTime(dateInput);
+    }
+    catch (FormatException)
+    {
+        while (!dateBool)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("Ange ett giltigt datum: ");
+            Console.ResetColor();
+            dateInput = Console.ReadLine();
+            dateBool = DateTime.TryParse(dateInput, out purchaseDate);
+        }
+    }
+   
 
     Console.Write(" >> Ange pris: "); //Price input
     string priceInput = Console.ReadLine();
@@ -72,22 +88,22 @@ while (true)
     Console.Write(" >> Är det en (1) laptop eller (2) mobiltelefon du vill lägga till? "); //Type input
     string typeInput = (Console.ReadLine());
 
-    bool isInt = int.TryParse(typeInput, out int intTypeInput);
+    bool isTypeInt = int.TryParse(typeInput, out int intTypeInput);
 
     //Error handling for wrong type input
-    if (!isInt) //If input is not an int
+    if (!isTypeInt) //If input is not an int
     {
-        while (!isInt)
+        while (!isTypeInt)
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.Write("Ange en siffra, (1) för laptop och (2) för mobiltelefon: ");
             Console.ResetColor();
             typeInput = Console.ReadLine();
-            isInt = int.TryParse(typeInput, out intTypeInput);
+            isTypeInt = int.TryParse(typeInput, out intTypeInput);
         }
     }
 
-    if (isInt)
+    if (isTypeInt)
     {
         if (intTypeInput != 1 && intTypeInput != 2) //If input is not 1 or 2
         {
@@ -95,14 +111,14 @@ while (true)
             Console.Write("Ange (1) för laptop och (2) för mobil: ");
             Console.ResetColor();
             typeInput = Console.ReadLine();
-            isInt = int.TryParse(typeInput, out intTypeInput);
+            isTypeInt = int.TryParse(typeInput, out intTypeInput);
         }
 
         if (intTypeInput == 1) //Add product to asset list - laptop type
         {
-
             assets.Add(new Laptop("Laptop", brand, model, purchaseDate, price));
             AddedMessage();
+            
         }
         else if (intTypeInput == 2) //Add product to asset list - mobile phone type
         {
@@ -111,7 +127,8 @@ while (true)
         }
     }
 }
-List<Asset> sortedList = assets.OrderBy(c => c.Type).ThenBy(c => c.PurchaseDate).ToList();
+
+List<Asset> sortedList = assets.OrderBy(a => a.Type).ThenBy(a => a.PurchaseDate).ToList();
 
 //Display assets
 Console.WriteLine();

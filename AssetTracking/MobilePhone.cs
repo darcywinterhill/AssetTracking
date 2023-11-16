@@ -13,7 +13,15 @@
 
         public override void Print()
         {
-            Console.ForegroundColor = IsEndOfLifeNear() ? ConsoleColor.Red : ConsoleColor.Gray;
+            if (IsEndOfLifeNear())
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+            }
+            else if (IsEndOfLifeAlmostNear())
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+            }
+
             Console.WriteLine(Type.PadRight(20) + Brand.PadRight(20) + Model.PadRight(20) + PurchaseDate.ToString("yy/MM/dd").PadRight(20) + Price);
             Console.ResetColor();
         }
@@ -22,6 +30,11 @@
         {
             DateTime endOfLifeDate = PurchaseDate.AddYears(3);
             return endOfLifeDate < DateTime.Now.AddMonths(3);
+        }
+        public override bool IsEndOfLifeAlmostNear()
+        {
+            DateTime endOfLifeDate = PurchaseDate.AddYears(3);
+            return endOfLifeDate < DateTime.Now.AddMonths(6);
         }
     }
 }
