@@ -117,16 +117,13 @@ while (true)
     bool isTypeInt = int.TryParse(typeInput, out int intTypeInput);
 
     //Error handling for wrong type input
-    if (!isTypeInt) //If input is not an int
+    while (!isTypeInt)
     {
-        while (!isTypeInt)
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("Ange en siffra - (1) för laptop och (2) för mobiltelefon: ");
-            Console.ResetColor();
-            typeInput = Console.ReadLine();
-            isTypeInt = int.TryParse(typeInput, out intTypeInput);
-        }
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.Write("Ange en siffra - (1) för laptop och (2) för mobiltelefon: ");
+        Console.ResetColor();
+        typeInput = Console.ReadLine();
+        isTypeInt = int.TryParse(typeInput, out intTypeInput);
     }
 
     if (isTypeInt)
