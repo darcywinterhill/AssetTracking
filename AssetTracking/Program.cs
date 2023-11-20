@@ -128,7 +128,7 @@ while (true)
 
     if (isTypeInt)
     {
-        if (intTypeInput != 1 && intTypeInput != 2) //If input is not 1 or 2
+        while (intTypeInput != 1 && intTypeInput != 2) //If input is not 1 or 2
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.Write("Ange (1) för laptop och (2) för mobiltelefon: ");
